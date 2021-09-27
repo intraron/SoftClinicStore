@@ -1,0 +1,83 @@
+	<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+	
+	<!-- beans:bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleVoter">
+		<beans:property name="rolePrefix" value=""></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg name="decisionVoters" ref="roleVoter" />
+	</beans:bean -->
+	
+	<beans:bean id="customLogoutSuccessHandler" class="com.intraron.softclinicstore.core.handlers.CustomLogoutSuccessHandler"/>
+
+	<http authentication-manager-ref="daoAuth" disable-url-rewriting="true" use-expressions="true">
+	<!-- auto-config="true" -->
+		<csrf disabled="true"/>
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/irbandeja" access="hasRole('ADMIN')" />
+
+		<form-login login-page="/irLogin3" authentication-failure-url="/irLogin3?error"
+			username-parameter="username" password-parameter="password"
+			default-target-url="/irbandeja" login-processing-url="/j_spring_security_check"/>
+			
+			<logout invalidate-session="true"
+			 logout-url="/logout" delete-cookies="JSESSIONID" success-handler-ref="customLogoutSuccessHandler" />
+			 
+			 <access-denied-handler error-page="/irLogin3?denied" />
+			 
+			 <session-management invalid-session-url="/irLogin3?close">
+				<concurrency-control max-sessions="1"
+				expired-url="/irLogin3" error-if-maximum-exceeded="true"/>
+			</session-management>
+				 
+		<!-- intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/home**" access="hasAnyRole('ADMIN','USER')" />
+		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/users**" access="hasRole('USER')" />
+		
+		<form-login login-page="/login" authentication-failure-url="/login?error"
+			username-parameter="seudonimo" password-parameter="contrasena"
+			default-target-url="/home" />
+			
+		<logout invalidate-session="true"
+			logout-url="/logout" delete-cookies="JSESSIONID" success-handler-ref="customLogoutSuccessHandler" />
+			
+		<access-denied-handler error-page="/login?denied" />
+		<session-management invalid-session-url="/login?close">
+			<concurrency-control max-sessions="1"
+			expired-url="/login" error-if-maximum-exceeded="true"/>
+		</session-management -->
+	</http>
+	
+	<beans:bean id="softclinicstoreUserDetailsService" class="com.intraron.softclinicstore.core.security.SoftClinicStoreUserDatailsService" />
+	
+	<!-- beans:bean id="SoftClinicStorePasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11" />
+	</beans:bean  -->
+	
+	<authentication-manager id="daoAuth">
+		<authentication-provider user-service-ref="softclinicstoreUserDetailsService">
+			<!-- password-encoder ref="mandalaPasswordEncoder"/ -->
+		</authentication-provider>
+	</authentication-manager>
+	
+	<beans:bean id="authProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="softclinicstoreUserDetailsService" />
+		<!-- beans:property name="passwordEncoder" ref="mandalaPasswordEncoder" / -->
+	</beans:bean>
+	
+	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+</beans:beans>
+
+
+

@@ -1,0 +1,96 @@
+<% 	
+	event.date_start = new Date(parseInt(event.start));
+	event.date_end = new Date(parseInt(event.end)); 
+%>
+<div id="event-meta">
+   
+    <div class="row">
+		<div class="col-sm-12">
+			<h3><small>Fecha y hora de la Cita</small></h3>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group date" id="datepicker_ini">
+				<input type='text' class="form-control" value="<%= event.date_start.getDate() %> <%= calendar.locale['m' + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, a las <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() %>" readonly>
+	            <span class="input-group-addon add-on">
+	                <span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+        	<div class="input-group date" id="datepicker_fin">
+        		<input type='text' class="form-control" value="<%= event.date_end.getDate() %> <%= calendar.locale['m' + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %> a las <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() %>" readonly>
+		        <span class="input-group-addon add-on">
+		            <span class="glyphicon glyphicon-calendar"></span>
+		        </span>
+    		</div>
+      	</div>
+        <!-- ######################## -->
+        <div class="col-sm-12">
+        	<div class="col-sm-6">
+       		<h3><small>Usuario de Paciente</small></h3>
+       			<div class="input-group">
+       			<span class="input-group-addon" id="pNombre_id"><span class="glyphicon glyphicon-search" style="color: green;"></span></span>
+                <select class="form-control" readonly>
+                 	<option selected="selected"><%= event.paciente%></option>				
+		      	</select>
+               </div>
+			</div>
+			<div class="col-sm-6">
+				<h3><small>Usuario de Medico Tratante</small></h3>
+				<div class="input-group">
+                  <span class="input-group-addon" id="pNombre_id"><span class="glyphicon glyphicon-search" style="color: green;"></span></span>
+                  <select class="form-control" readonly>
+                  	<option selected="selected"><%= event.doctor%></option>
+			      </select>
+                </div>
+			</div>
+           </div>
+              <!-- ######################## -->
+           <div class="col-sm-12">
+			<h3><small>Tipo de Cita</small></h3>
+		</div>
+		<div class="col-sm-12">
+			<select class="form-control" readonly>
+				<% if(event.class=="event-info") {%>    			
+					<option selected="selected" value="event-info">Información</option>
+	            <%}%>
+	            <% if(event.class=="event-success") {%> 					
+	                <option selected="selected" value="event-success">Cumplido</option>	                
+	            <%}%>
+	            <% if(event.class=="event-inverse") {%> 					
+	                <option selected="selected" value="event-inverse">Reversado</option>	                
+	            <%}%>
+	            <% if(event.class=="event-important") {%> 					
+	                <option selected="selected" value="event-important">Importante</option>	               
+	            <%}%>
+	            <% if(event.class=="event-warning") {%>					
+	                <option selected="selected" value="event-warning">Advertencia</option>	               
+	            <%}%>
+	            <% if(event.class=="event-special") {%>					
+	                <option selected="selected" value="event-special">Especial</option>
+	            <%}%>
+		    </select>
+	    </div>
+           <div class="col-sm-12">
+			<h3><small>Titulo</small></h3>
+		</div>
+		<div class=" col-sm-12">
+			<div class="input-group">
+                 <span class="input-group-addon" id="pNombre_id"><span class="glyphicon glyphicon-pencil"></span></span>
+                 <input type="text" class="form-control" value="<%= event.title%>">
+            </div>
+        </div>
+		<div class="col-sm-12">
+			<h3><small>Descripcion</small></h3>
+		</div>
+		<div class="col-sm-12">
+			<textarea class="form-control" rows="5"><%= event.description%></textarea>
+        </div>
+        <div class="col-md-12">
+			<div>
+				<h3>&nbsp;</h3>
+			</div>
+		</div>
+     </div>
+          
+</div>

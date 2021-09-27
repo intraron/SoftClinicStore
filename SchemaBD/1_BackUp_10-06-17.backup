@@ -1,0 +1,685 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.20
+-- Dumped by pg_dump version 9.2.20
+-- Started on 2017-06-10 21:18:57
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 2011 (class 1262 OID 24780)
+-- Name: scs; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE scs WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Spanish_Spain.1252' LC_CTYPE = 'Spanish_Spain.1252';
+
+
+ALTER DATABASE scs OWNER TO postgres;
+
+\connect scs
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 8 (class 2615 OID 24781)
+-- Name: scs; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA scs;
+
+
+ALTER SCHEMA scs OWNER TO postgres;
+
+--
+-- TOC entry 1 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2014 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = scs, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 170 (class 1259 OID 24856)
+-- Name: contactos; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contactos (
+    n_id bigint NOT NULL,
+    n_cedula text,
+    n_rif text,
+    s_usuariosis text,
+    s_pnombre text,
+    s_snombre text,
+    s_papellido text,
+    s_sapellido text,
+    n_edad integer,
+    s_correo text,
+    n_telefmo text,
+    n_telefof text,
+    s_tipodocumento text,
+    dt_fechanaci timestamp without time zone,
+    s_sexo text,
+    s_medicotra text,
+    s_cargo text,
+    s_profesi text,
+    s_nacionali text,
+    s_estadocivil text,
+    s_jefedirec text,
+    s_usujefedirec text,
+    n_cedulajefe text,
+    s_twitter text,
+    s_instagram text,
+    s_comentario text,
+    n_id_empresa bigint,
+    n_id_direccion bigint,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.contactos OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 24880)
+-- Name: direcciones; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE direcciones (
+    n_id bigint NOT NULL,
+    s_pais text,
+    s_estado text,
+    s_municipio text,
+    s_despart text,
+    s_provin text,
+    s_parroq text,
+    s_sector text,
+    s_caavca text,
+    s_casaedi text,
+    s_piso text,
+    n_numcasa integer,
+    s_prefer text,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.direcciones OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 24888)
+-- Name: empresas; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE empresas (
+    n_id bigint NOT NULL,
+    s_nombre text,
+    n_telefof text,
+    n_fax text,
+    s_correo text,
+    s_pweb text,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.empresas OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 24904)
+-- Name: historias; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE historias (
+    n_id bigint NOT NULL,
+    dt_fechaconsul timestamp without time zone,
+    s_moticonsul text,
+    s_anteceenferme text,
+    s_antehedofamil text,
+    b_padresvivos boolean,
+    b_padresfalle boolean,
+    s_causaspapfalle text,
+    b_hermasvivos boolean,
+    b_hemasfallec boolean,
+    s_causasherfalle text,
+    b_hijosvivos boolean,
+    b_hijosfalle boolean,
+    s_causashijfalle text,
+    b_famidiabetes boolean,
+    b_famihiperten boolean,
+    b_famitubercul boolean,
+    b_famigenelar boolean,
+    s_otrasfamienfer text,
+    b_habialcohol boolean,
+    b_habitabaco boolean,
+    b_habidrogas boolean,
+    b_patodiabet boolean,
+    b_patohipert boolean,
+    b_patotuberc boolean,
+    s_otraspatoenfer text,
+    s_cirugiperso text,
+    s_traumasperso text,
+    s_alergiaperso text,
+    s_otrasenferperso text,
+    b_embarazo boolean,
+    s_impregeneralfisi text,
+    s_sigvitalfc text,
+    s_sigvitalta text,
+    s_sigvitalrf text,
+    s_sigvitalpul text,
+    s_sigvitaltaux text,
+    s_sigvitaltrectal text,
+    n_pesohabi text,
+    n_pesoactual text,
+    n_talla text,
+    n_imc text,
+    s_diagnost text,
+    s_tratamie text,
+    s_comengenerales text,
+    n_id_contacto_paciente bigint,
+    n_id_contacto_doctor bigint,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.historias OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 24912)
+-- Name: informes; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE informes (
+    n_id bigint NOT NULL,
+    dt_fechainforme timestamp without time zone,
+    s_notivoconsulta text,
+    s_diagnost text,
+    s_esturealizado text,
+    s_tratamie text,
+    b_incapatemp boolean,
+    dt_iniincatemp timestamp without time zone,
+    dt_finincatemp timestamp without time zone,
+    b_incapatotal boolean,
+    n_id_contacto_paciente bigint,
+    n_id_contacto_doctor bigint,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.informes OWNER TO postgres;
+
+--
+-- TOC entry 171 (class 1259 OID 24864)
+-- Name: operadores; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE operadores (
+    n_id bigint NOT NULL,
+    s_usuariosis text,
+    s_pnombre text,
+    s_snombre text,
+    s_papellido text,
+    s_sapellido text,
+    s_correo text,
+    n_telefof text,
+    s_contras text,
+    dt_ultimahora timestamp without time zone,
+    n_id_empresa bigint,
+    n_id_contacto bigint,
+    b_activo boolean,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.operadores OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 24896)
+-- Name: presupuestos; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE presupuestos (
+    n_id bigint NOT NULL,
+    n_articulo bigint,
+    s_desarticulo text,
+    n_canarticulo text,
+    n_prearticulo text,
+    n_total text,
+    n_id_contacto bigint,
+    n_id_empresa bigint,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.presupuestos OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 24872)
+-- Name: roles; Type: TABLE; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE roles (
+    n_id bigint NOT NULL,
+    s_nombre text,
+    s_descri text,
+    s_estadop text,
+    b_actualizar boolean,
+    b_modificar boolean,
+    b_eliminar boolean,
+    b_ver boolean,
+    b_esadmin boolean,
+    s_usuariosis_operador text,
+    dt_sysmodtime timestamp without time zone,
+    s_sysmoduser text,
+    n_sysmodcount text
+);
+
+
+ALTER TABLE scs.roles OWNER TO postgres;
+
+--
+-- TOC entry 1999 (class 0 OID 24856)
+-- Dependencies: 170
+-- Data for Name: contactos; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY contactos (n_id, n_cedula, n_rif, s_usuariosis, s_pnombre, s_snombre, s_papellido, s_sapellido, n_edad, s_correo, n_telefmo, n_telefof, s_tipodocumento, dt_fechanaci, s_sexo, s_medicotra, s_cargo, s_profesi, s_nacionali, s_estadocivil, s_jefedirec, s_usujefedirec, n_cedulajefe, s_twitter, s_instagram, s_comentario, n_id_empresa, n_id_direccion, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+0	16301491	163014919	intraron	Luis	Alberto	Villamizar	Pallasco	33	intraron@gmail.com	04142228214	\N	C	\N	M	\N	\N	\N	Venezolano	Soltero	\N	\N	\N	@intraron	@intraron	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 2002 (class 0 OID 24880)
+-- Dependencies: 173
+-- Data for Name: direcciones; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY direcciones (n_id, s_pais, s_estado, s_municipio, s_despart, s_provin, s_parroq, s_sector, s_caavca, s_casaedi, s_piso, n_numcasa, s_prefer, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2003 (class 0 OID 24888)
+-- Dependencies: 174
+-- Data for Name: empresas; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY empresas (n_id, s_nombre, n_telefof, n_fax, s_correo, s_pweb, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2005 (class 0 OID 24904)
+-- Dependencies: 176
+-- Data for Name: historias; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY historias (n_id, dt_fechaconsul, s_moticonsul, s_anteceenferme, s_antehedofamil, b_padresvivos, b_padresfalle, s_causaspapfalle, b_hermasvivos, b_hemasfallec, s_causasherfalle, b_hijosvivos, b_hijosfalle, s_causashijfalle, b_famidiabetes, b_famihiperten, b_famitubercul, b_famigenelar, s_otrasfamienfer, b_habialcohol, b_habitabaco, b_habidrogas, b_patodiabet, b_patohipert, b_patotuberc, s_otraspatoenfer, s_cirugiperso, s_traumasperso, s_alergiaperso, s_otrasenferperso, b_embarazo, s_impregeneralfisi, s_sigvitalfc, s_sigvitalta, s_sigvitalrf, s_sigvitalpul, s_sigvitaltaux, s_sigvitaltrectal, n_pesohabi, n_pesoactual, n_talla, n_imc, s_diagnost, s_tratamie, s_comengenerales, n_id_contacto_paciente, n_id_contacto_doctor, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2006 (class 0 OID 24912)
+-- Dependencies: 177
+-- Data for Name: informes; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY informes (n_id, dt_fechainforme, s_notivoconsulta, s_diagnost, s_esturealizado, s_tratamie, b_incapatemp, dt_iniincatemp, dt_finincatemp, b_incapatotal, n_id_contacto_paciente, n_id_contacto_doctor, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2000 (class 0 OID 24864)
+-- Dependencies: 171
+-- Data for Name: operadores; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY operadores (n_id, s_usuariosis, s_pnombre, s_snombre, s_papellido, s_sapellido, s_correo, n_telefof, s_contras, dt_ultimahora, n_id_empresa, n_id_contacto, b_activo, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+0	intraron	Luis	Alberto	Villamiza	Pallasco	intraron@gmail.com	04142228214	1234	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 2004 (class 0 OID 24896)
+-- Dependencies: 175
+-- Data for Name: presupuestos; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY presupuestos (n_id, n_articulo, s_desarticulo, n_canarticulo, n_prearticulo, n_total, n_id_contacto, n_id_empresa, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2001 (class 0 OID 24872)
+-- Dependencies: 172
+-- Data for Name: roles; Type: TABLE DATA; Schema: scs; Owner: postgres
+--
+
+COPY roles (n_id, s_nombre, s_descri, s_estadop, b_actualizar, b_modificar, b_eliminar, b_ver, b_esadmin, s_usuariosis_operador, dt_sysmodtime, s_sysmoduser, n_sysmodcount) FROM stdin;
+0	ROLE_ADMIN	\N	\N	\N	\N	\N	\N	\N	intraron	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 1846 (class 2606 OID 25020)
+-- Name: contacto_usuariosistema_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contactos
+    ADD CONSTRAINT contacto_usuariosistema_unico UNIQUE (s_usuariosis);
+
+
+--
+-- TOC entry 1848 (class 2606 OID 24863)
+-- Name: contactos_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contactos
+    ADD CONSTRAINT contactos_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1860 (class 2606 OID 24887)
+-- Name: direcciones_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY direcciones
+    ADD CONSTRAINT direcciones_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1862 (class 2606 OID 24895)
+-- Name: empresas_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY empresas
+    ADD CONSTRAINT empresas_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1870 (class 2606 OID 24989)
+-- Name: historias_contactos_doct_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY historias
+    ADD CONSTRAINT historias_contactos_doct_unico UNIQUE (n_id_contacto_doctor);
+
+
+--
+-- TOC entry 1872 (class 2606 OID 24987)
+-- Name: historias_contactos_paci_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY historias
+    ADD CONSTRAINT historias_contactos_paci_unico UNIQUE (n_id_contacto_paciente);
+
+
+--
+-- TOC entry 1874 (class 2606 OID 24911)
+-- Name: historias_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY historias
+    ADD CONSTRAINT historias_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1876 (class 2606 OID 25003)
+-- Name: informes_contactos_doct_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY informes
+    ADD CONSTRAINT informes_contactos_doct_unico UNIQUE (n_id_contacto_doctor);
+
+
+--
+-- TOC entry 1878 (class 2606 OID 25001)
+-- Name: informes_contactos_paci_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY informes
+    ADD CONSTRAINT informes_contactos_paci_unico UNIQUE (n_id_contacto_paciente);
+
+
+--
+-- TOC entry 1880 (class 2606 OID 24919)
+-- Name: informes_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY informes
+    ADD CONSTRAINT informes_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1850 (class 2606 OID 24871)
+-- Name: operador_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT operador_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1852 (class 2606 OID 24942)
+-- Name: operadores_contactos_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT operadores_contactos_unico UNIQUE (n_id_contacto);
+
+
+--
+-- TOC entry 1854 (class 2606 OID 24944)
+-- Name: operadores_empresas_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT operadores_empresas_unico UNIQUE (n_id_empresa);
+
+
+--
+-- TOC entry 1864 (class 2606 OID 24973)
+-- Name: presupuestos_contactos_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY presupuestos
+    ADD CONSTRAINT presupuestos_contactos_unico UNIQUE (n_id_contacto);
+
+
+--
+-- TOC entry 1866 (class 2606 OID 24975)
+-- Name: presupuestos_empresas_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY presupuestos
+    ADD CONSTRAINT presupuestos_empresas_unico UNIQUE (n_id_empresa);
+
+
+--
+-- TOC entry 1868 (class 2606 OID 24903)
+-- Name: presupuestos_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY presupuestos
+    ADD CONSTRAINT presupuestos_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1858 (class 2606 OID 24879)
+-- Name: rol_pk; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT rol_pk PRIMARY KEY (n_id);
+
+
+--
+-- TOC entry 1856 (class 2606 OID 24946)
+-- Name: usuariosistema_unico; Type: CONSTRAINT; Schema: scs; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT usuariosistema_unico UNIQUE (s_usuariosis);
+
+
+--
+-- TOC entry 1882 (class 2606 OID 24952)
+-- Name: contactos_direcciones_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY contactos
+    ADD CONSTRAINT contactos_direcciones_fk FOREIGN KEY (n_id_direccion) REFERENCES direcciones(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1881 (class 2606 OID 24947)
+-- Name: contactos_empresas_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY contactos
+    ADD CONSTRAINT contactos_empresas_fk FOREIGN KEY (n_id_empresa) REFERENCES empresas(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1890 (class 2606 OID 24981)
+-- Name: historias_contactos_doct_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY historias
+    ADD CONSTRAINT historias_contactos_doct_fk FOREIGN KEY (n_id_contacto_doctor) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1889 (class 2606 OID 24976)
+-- Name: historias_contactos_paci_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY historias
+    ADD CONSTRAINT historias_contactos_paci_fk FOREIGN KEY (n_id_contacto_paciente) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1892 (class 2606 OID 24995)
+-- Name: informes_contactos_doct_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY informes
+    ADD CONSTRAINT informes_contactos_doct_fk FOREIGN KEY (n_id_contacto_doctor) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1891 (class 2606 OID 24990)
+-- Name: informes_contactos_paci_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY informes
+    ADD CONSTRAINT informes_contactos_paci_fk FOREIGN KEY (n_id_contacto_paciente) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1884 (class 2606 OID 24936)
+-- Name: operadores_contactos_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT operadores_contactos_fk FOREIGN KEY (n_id_contacto) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1883 (class 2606 OID 24931)
+-- Name: operadores_empresas_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT operadores_empresas_fk FOREIGN KEY (n_id_empresa) REFERENCES empresas(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1887 (class 2606 OID 24962)
+-- Name: presupuestos_contactos_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY presupuestos
+    ADD CONSTRAINT presupuestos_contactos_fk FOREIGN KEY (n_id_contacto) REFERENCES contactos(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1888 (class 2606 OID 24967)
+-- Name: presupuestos_empresas_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY presupuestos
+    ADD CONSTRAINT presupuestos_empresas_fk FOREIGN KEY (n_id_empresa) REFERENCES empresas(n_id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1886 (class 2606 OID 25004)
+-- Name: roles_operadores_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_operadores_fk FOREIGN KEY (s_usuariosis_operador) REFERENCES operadores(s_usuariosis);
+
+
+--
+-- TOC entry 1885 (class 2606 OID 25021)
+-- Name: usuariosistema_contacto_fk; Type: FK CONSTRAINT; Schema: scs; Owner: postgres
+--
+
+ALTER TABLE ONLY operadores
+    ADD CONSTRAINT usuariosistema_contacto_fk FOREIGN KEY (s_usuariosis) REFERENCES contactos(s_usuariosis) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2013 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2017-06-10 21:18:58
+
+--
+-- PostgreSQL database dump complete
+--
+
